@@ -1,0 +1,24 @@
+Icea\CEA478\HelpDeskBundle\Entity\UsuarioClasse:
+    type: entity
+    table: usuario_classe
+    uniqueConstraints:
+        descricao_UNIQUE:
+            columns:
+                - descricao
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        descricao:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

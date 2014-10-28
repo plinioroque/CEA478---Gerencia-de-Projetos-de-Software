@@ -1,0 +1,30 @@
+relatorios:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:Relatorios:index" }
+
+relatorios_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:Relatorios:show" }
+
+relatorios_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:Relatorios:new" }
+
+relatorios_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:Relatorios:create" }
+    requirements: { _method: post }
+
+relatorios_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:Relatorios:edit" }
+
+relatorios_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:Relatorios:update" }
+    requirements: { _method: post|put }
+
+relatorios_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:Relatorios:delete" }
+    requirements: { _method: post|delete }

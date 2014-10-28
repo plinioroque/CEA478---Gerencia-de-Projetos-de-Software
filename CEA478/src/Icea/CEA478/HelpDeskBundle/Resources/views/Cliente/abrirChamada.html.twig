@@ -1,0 +1,101 @@
+{% extends '::templateAll.html.twig' %}
+
+{% block body -%}    
+    {% block container %}
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">HelpDesk</p>
+                <div class="list-group">
+                    <a href="{{path('cliente_home', {'userId': cliente.id } )}}" class="list-group-item">Início</a>
+                    <a href="{{path('abrir_chamada', { 'userId': cliente.id } )}}" class="list-group-item">Abrir Chamada</a>
+                    <a href="#" class="list-group-item">Minhas Chamadas</a>
+                    <a href="#" class="list-group-item">Ver Todas Chamadas</a>
+                    <a href="{{path('login')}}" class="list-group-item">Sair</a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                {{form_start(form, { 'attr': {'class':'form-horizontal well'} })}}
+                <fieldset>
+                    <legend>Iniciar uma Chamada</legend>
+                    <div class="col-lg-12">
+                        <label class="control-label" for="input01">Solicitante: </label>
+                        <div class="controls">
+                            <input class="form-control input-xlarge" value="{{cliente.nome}}" disabled="true">
+                            <p class="help-block">Nome do usuário solicitante.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label" for="input01">E-mail principal: </label>
+                        <div class="controls">
+                            <input class="form-control" value="{{cliente.username}}" disabled="true">
+                            <p class="help-block">Email principal do solicitante.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label" for="input01">Telefone/Ramal: </label>
+                        <div class="controls">
+                            <input class="form-control" value="{{cliente.telefone}}" disabled="true">
+                            <p class="help-block">Telefone ou ramal principal do solicitante.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="control-label" for="descricaoProblema">Descrição:</label>
+                        <div class="controls">
+                            {{form_widget(form.descricaoProblema)}}
+                            {{form_errors(form.descricaoProblema) }}
+                        </div>
+                        <p class="help-block">Escreva uma breve descrição do problema ocorrido.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label" for="select01">Local onde ocorreu o problema:</label>
+                        <div class="controls">
+                            {{form_widget(form.chamadaLocal) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label" for="select01">Categoria do problema:</label>
+                        <div class="controls">
+                            {{ form_widget(form.chamadaCategoria) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="control-label" for="textarea">Observações:</label>
+                        <div class="controls">
+                            {{ form_widget(form.observacoes) }}
+                            <p class="help-block">Observações quanto ao problema ocorrido. (Exemplo: uma categoria não listada)</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label" for="input01">Contato adicional(Celular): </label>
+                        <div class="controls">
+                            {{ form_widget(form.contatoAdicional1) }}
+                            <p class="help-block">Contato adicional caso não se consiga entrar em contato por outros meios.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label" for="input01">E-mail adicional para contato: </label>
+                        <div class="controls">
+                            {{ form_widget(form.contatoAdicional2) }}
+                            <p class="help-block">Contato adicional caso haja necessidade de comunicação com o solicitante.</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="col-lg-6">
+                        <div class="form-actions">
+                            {{ form_widget(form.submit, { 'attr' : {'class': 'btn btn-primary'}, 'label': 'Salvar' }) }}
+                            <button type="reset" class="btn btn-warning">Limpar</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}

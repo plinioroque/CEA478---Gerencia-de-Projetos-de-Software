@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Relatorios list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Horadata</th>
+                <th>Evento</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('relatorios_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.horaData %}{{ entity.horaData|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.evento }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('relatorios_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('relatorios_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('relatorios_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -1,0 +1,56 @@
+Icea\CEA478\HelpDeskBundle\Entity\Usuario:
+    type: entity
+    table: usuario
+    indexes:
+        fk_id_classe:
+            columns:
+                - usuario_classe_id
+    uniqueConstraints:
+        username_UNIQUE:
+            columns:
+                - username
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nome:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+        username:
+            type: string
+            nullable: false
+            length: 32
+            fixed: false
+            comment: ''
+        telefone:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+        password:
+            type: string
+            nullable: false
+            length: 32
+            fixed: false
+            comment: ''
+    manyToOne:
+        usuarioClasse:
+            targetEntity: UsuarioClasse
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_classe_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

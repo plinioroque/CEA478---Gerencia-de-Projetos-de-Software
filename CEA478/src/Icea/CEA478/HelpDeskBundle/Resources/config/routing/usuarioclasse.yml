@@ -1,0 +1,30 @@
+usuarioclasse:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:index" }
+
+usuarioclasse_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:show" }
+
+usuarioclasse_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:new" }
+
+usuarioclasse_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:create" }
+    requirements: { _method: post }
+
+usuarioclasse_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:edit" }
+
+usuarioclasse_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:update" }
+    requirements: { _method: post|put }
+
+usuarioclasse_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:UsuarioClasse:delete" }
+    requirements: { _method: post|delete }

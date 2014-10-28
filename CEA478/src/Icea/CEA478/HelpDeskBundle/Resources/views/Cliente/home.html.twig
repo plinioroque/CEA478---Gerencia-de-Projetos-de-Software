@@ -1,0 +1,38 @@
+{% extends '::templateAll.html.twig' %}
+
+{% block body -%}    
+    {% block container %}
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">HelpDesk</p>
+                <div class="list-group">
+                    <a href="{{path('cliente_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
+                    <a href="{{path('abrir_chamada', { 'userId': usuario.id } )}}" class="list-group-item">Abrir Chamada</a>
+                    <a href="#" class="list-group-item">Minhas Chamadas</a>
+                    <a href="#" class="list-group-item">Ver Todas Chamadas</a>
+                    <a href="{{path('login')}}" class="list-group-item">Sair</a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <img class="img-responsive" src="{{asset('bundles/iceasisnti/images/logoicea.jpg')}}" alt="">
+                    <div class="caption-full">
+                        <br><br>
+                        
+                        <a class="list-group-item lead well-sm"><label>Nome:</label> {{usuario.nome}}</a>
+                        <a class="list-group-item lead well-sm"><label>E-mail:</label> {{usuario.username}}</a>
+                        <a class="list-group-item lead well-sm"><label>Total de Ordens Solicitadas:</label> {{chamadas|length}}</a>
+                        <a class="list-group-item"><label>Em Aberto:</label> ~</a>
+                        <a class="list-group-item"><label>Em Andamento:</label> ~</a>
+                        <a class="list-group-item"><label>Finalizadas:</label> ~</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+chamadas:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:Chamadas:index" }
+
+chamadas_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:Chamadas:show" }
+
+chamadas_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:Chamadas:new" }
+
+chamadas_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:Chamadas:create" }
+    requirements: { _method: post }
+
+chamadas_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:Chamadas:edit" }
+
+chamadas_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:Chamadas:update" }
+    requirements: { _method: post|put }
+
+chamadas_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:Chamadas:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,30 @@
+chamadanivel:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:index" }
+
+chamadanivel_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:show" }
+
+chamadanivel_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:new" }
+
+chamadanivel_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:create" }
+    requirements: { _method: post }
+
+chamadanivel_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:edit" }
+
+chamadanivel_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:update" }
+    requirements: { _method: post|put }
+
+chamadanivel_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:ChamadaNivel:delete" }
+    requirements: { _method: post|delete }

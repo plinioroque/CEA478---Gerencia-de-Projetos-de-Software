@@ -1,0 +1,127 @@
+Icea\CEA478\HelpDeskBundle\Entity\Chamadas:
+    type: entity
+    table: chamadas
+    indexes:
+        fk_id_nivel:
+            columns:
+                - chamada_nivel_id
+        fk_id_status:
+            columns:
+                - chamada_status_id
+        fk_id_local:
+            columns:
+                - chamada_local_id
+        fk_id_categoria:
+            columns:
+                - chamada_categoria_id
+        fk_id_cliente:
+            columns:
+                - cliente_id
+        fk_id_responsavel:
+            columns:
+                - responsavel_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        horaData:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: hora_data
+        descricaoProblema:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+            column: descricao_problema
+        observacoes:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        contatoAdicional1:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: contato_adicional1
+        contatoAdicional2:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: contato_adicional2
+        descricaoSolucao:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: descricao_solucao
+    manyToOne:
+        chamadaNivel:
+            targetEntity: ChamadaNivel
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                chamada_nivel_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        chamadaStatus:
+            targetEntity: ChamadaStatus
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                chamada_status_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        chamadaLocal:
+            targetEntity: ChamadaLocal
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                chamada_local_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        chamadaCategoria:
+            targetEntity: ChamadaCategoria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                chamada_categoria_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        cliente:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cliente_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        responsavel:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                responsavel_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: /home/plinio/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/config/routing_dev.yml

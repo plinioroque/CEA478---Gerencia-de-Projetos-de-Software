@@ -1,0 +1,30 @@
+chamadastatus:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:index" }
+
+chamadastatus_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:show" }
+
+chamadastatus_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:new" }
+
+chamadastatus_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:create" }
+    requirements: { _method: post }
+
+chamadastatus_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:edit" }
+
+chamadastatus_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:update" }
+    requirements: { _method: post|put }
+
+chamadastatus_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:ChamadaStatus:delete" }
+    requirements: { _method: post|delete }

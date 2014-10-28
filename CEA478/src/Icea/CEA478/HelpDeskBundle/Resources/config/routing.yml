@@ -1,0 +1,52 @@
+help_desk_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: HelpDeskBundle:Default:index }
+    
+HelpDeskBundle_chamadas:
+    resource: "@HelpDeskBundle/Resources/config/routing/chamadas.yml"
+    prefix:   /chamadas
+
+HelpDeskBundle_chamadacategoria:
+    resource: "@HelpDeskBundle/Resources/config/routing/chamadacategoria.yml"
+    prefix:   /chamadacategoria
+
+HelpDeskBundle_chamadalocal:
+    resource: "@HelpDeskBundle/Resources/config/routing/chamadalocal.yml"
+    prefix:   /chamadalocal
+    
+HelpDeskBundle_chamadastatus:
+    resource: "@HelpDeskBundle/Resources/config/routing/chamadastatus.yml"
+    prefix:   /chamadastatus
+
+HelpDeskBundle_chamadanivel:
+    resource: "@HelpDeskBundle/Resources/config/routing/chamadanivel.yml"
+    prefix:   /chamadanivel
+    
+HelpDeskBundle_relatorios:
+    resource: "@HelpDeskBundle/Resources/config/routing/relatorios.yml"
+    prefix:   /relatorios
+
+HelpDeskBundle_usuarioclasse:
+    resource: "@HelpDeskBundle/Resources/config/routing/usuarioclasse.yml"
+    prefix:   /usuarioclasse
+    
+HelpDeskBundle_usuario:
+    resource: "@HelpDeskBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuario
+
+
+login:
+    path:     /
+    defaults: { _controller: HelpDeskBundle:Login:login }
+
+login_check:
+    path:     /login_check
+    defaults: { _controller: HelpDeskBundle:Login:login_check }
+
+cliente_home:
+    path:     /helpdesk/{userId}/home/
+    defaults: { _controller: HelpDeskBundle:Cliente:home }
+
+abrir_chamada:
+    path:     /helpdesk/{userId}/abrirChamada/
+    defaults: { _controller: HelpDeskBundle:Cliente:abrirChamada }

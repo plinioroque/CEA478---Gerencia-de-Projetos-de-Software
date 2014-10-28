@@ -1,0 +1,30 @@
+chamadalocal:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:index" }
+
+chamadalocal_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:show" }
+
+chamadalocal_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:new" }
+
+chamadalocal_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:create" }
+    requirements: { _method: post }
+
+chamadalocal_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:edit" }
+
+chamadalocal_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:update" }
+    requirements: { _method: post|put }
+
+chamadalocal_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:ChamadaLocal:delete" }
+    requirements: { _method: post|delete }

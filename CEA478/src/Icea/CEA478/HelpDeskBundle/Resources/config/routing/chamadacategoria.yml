@@ -1,0 +1,30 @@
+chamadacategoria:
+    path:     /
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:index" }
+
+chamadacategoria_show:
+    path:     /{id}/show
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:show" }
+
+chamadacategoria_new:
+    path:     /new
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:new" }
+
+chamadacategoria_create:
+    path:     /create
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:create" }
+    requirements: { _method: post }
+
+chamadacategoria_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:edit" }
+
+chamadacategoria_update:
+    path:     /{id}/update
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:update" }
+    requirements: { _method: post|put }
+
+chamadacategoria_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HelpDeskBundle:ChamadaCategoria:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="br">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Sistema de Suporte NTI</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        {% block stylesheets %}
+            <link href="{{asset('bundles/helpdesk/css/bootstrap.min.css')}}" rel="stylesheet">
+            <!--[if lt IE 9]>
+              <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+            <link href="{{asset('bundles/helpdesk/css/styles.css')}}" rel="stylesheet">
+        {% endblock %}
+    </head>
+
+
+
+    <body>
+
+        {% block barraNavegacao %}
+            <!-- Barra de Navegação -->
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">SisNti</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">          
+                            <li class="active"><a href="#">Informações</a></li>
+                            <li class="active"><a href="#">Contato</a></li>
+                        </ul>
+                        <div class="navbar-brand navbar-collapse navbar-right">
+                            <label class="label">          
+                                {{data|date('d/M H:i') }}
+                            </label>
+                        </div>
+                    </div>
+
+
+                </div>
+            </nav><!-- /.navbar-collapse -->
+        {% endblock %}
+
+
+        <div class="container">
+            {% block container %}
+            {% endblock %}
+        </div>
+
+        {% block javascripts %}
+            <!-- script references -->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+            <script src="{{asset('bundles/iceasisnti/js/bootstrap.min.js')}}"></script>
+        {% endblock %}
+
+
+
+        {% block rodape %}
+            <!-- /.container -->
+
+            <div class="container">
+
+                <hr>
+
+                <!-- Footer -->
+                <footer>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>ICEA &copy; SisNTI 2014</p>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+            <!-- /.container -->
+        {% endblock %}
+
+
+    </body>
+
+
+</html>

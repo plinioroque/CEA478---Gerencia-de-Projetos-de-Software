@@ -1,0 +1,39 @@
+Relatorios:
+    type: entity
+    table: relatorios
+    indexes:
+        fk_id_chamada:
+            columns:
+                - chamada_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        horaData:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: hora_data
+        evento:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+    manyToOne:
+        chamada:
+            targetEntity: Chamadas
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                chamada_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
