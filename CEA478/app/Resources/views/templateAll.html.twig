@@ -8,11 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         {% block stylesheets %}
-            <link href="{{asset('bundles/helpdesk/css/bootstrap.min.css')}}" rel="stylesheet">
+            <link href="{{asset('bundles/helpdesk/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
             <!--[if lt IE 9]>
               <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
             <![endif]-->
-            <link href="{{asset('bundles/helpdesk/css/styles.css')}}" rel="stylesheet">
+            <link href="{{asset('bundles/helpdesk/css/styles.css')}}" rel="stylesheet" type="text/css">
         {% endblock %}
     </head>
 
@@ -55,8 +55,8 @@
 
         {% block javascripts %}
             <!-- script references -->
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-            <script src="{{asset('bundles/iceasisnti/js/bootstrap.min.js')}}"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js" type="text/javascript"></script>
+            <script src="{{asset('bundles/helpdesk/js/bootstrap.min.js')}}" type="text/javascript"></script>
         {% endblock %}
 
 
@@ -80,8 +80,6 @@
             </div>
             <!-- /.container -->
         {% endblock %}
-
-
     </body>
 
 

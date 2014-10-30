@@ -64,9 +64,7 @@ class __TwigTemplate_a4407bbfce42e86b9cdad956f6cfc314f8a287f77e55d08a75f8faad29c
         // line 64
         $this->displayBlock('rodape', $context, $blocks);
         // line 83
-        echo "
-
-    </body>
+        echo "    </body>
 
 
 </html>";
@@ -78,14 +76,14 @@ class __TwigTemplate_a4407bbfce42e86b9cdad956f6cfc314f8a287f77e55d08a75f8faad29c
         // line 11
         echo "            <link href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/helpdesk/css/bootstrap.min.css"), "html", null, true);
-        echo "\" rel=\"stylesheet\">
+        echo "\" rel=\"stylesheet\" type=\"text/css\">
             <!--[if lt IE 9]>
               <script src=\"//html5shim.googlecode.com/svn/trunk/html5.js\"></script>
             <![endif]-->
             <link href=\"";
         // line 15
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/helpdesk/css/styles.css"), "html", null, true);
-        echo "\" rel=\"stylesheet\">
+        echo "\" rel=\"stylesheet\" type=\"text/css\">
         ";
     }
 
@@ -135,11 +133,11 @@ class __TwigTemplate_a4407bbfce42e86b9cdad956f6cfc314f8a287f77e55d08a75f8faad29c
     {
         // line 57
         echo "            <!-- script references -->
-            <script src=\"//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js\"></script>
+            <script src=\"//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js\" type=\"text/javascript\"></script>
             <script src=\"";
         // line 59
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/iceasisnti/js/bootstrap.min.js"), "html", null, true);
-        echo "\"></script>
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/helpdesk/js/bootstrap.min.js"), "html", null, true);
+        echo "\" type=\"text/javascript\"></script>
         ";
     }
 
@@ -174,6 +172,6 @@ class __TwigTemplate_a4407bbfce42e86b9cdad956f6cfc314f8a287f77e55d08a75f8faad29c
 
     public function getDebugInfo()
     {
-        return array (  150 => 65,  147 => 64,  141 => 59,  137 => 57,  134 => 56,  130 => 53,  127 => 52,  114 => 40,  96 => 24,  93 => 23,  87 => 15,  79 => 11,  76 => 10,  67 => 83,  65 => 64,  60 => 61,  58 => 56,  54 => 54,  52 => 52,  47 => 49,  45 => 23,  37 => 17,  35 => 10,  24 => 1,);
+        return array (  148 => 65,  145 => 64,  139 => 59,  135 => 57,  128 => 53,  125 => 52,  94 => 24,  91 => 23,  77 => 11,  74 => 10,  65 => 64,  60 => 61,  58 => 56,  47 => 49,  45 => 23,  37 => 17,  35 => 10,  24 => 1,  232 => 113,  228 => 112,  224 => 111,  220 => 110,  216 => 108,  213 => 107,  205 => 102,  196 => 96,  184 => 87,  174 => 80,  164 => 73,  155 => 67,  146 => 61,  136 => 54,  132 => 56,  122 => 46,  112 => 40,  102 => 32,  93 => 26,  85 => 15,  79 => 18,  75 => 17,  67 => 83,  64 => 10,  59 => 115,  57 => 107,  54 => 54,  52 => 52,  49 => 9,  43 => 6,  39 => 5,  34 => 4,  31 => 3,);
     }
 }

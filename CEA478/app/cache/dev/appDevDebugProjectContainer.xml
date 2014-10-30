@@ -352,21 +352,22 @@
     <parameter key="swiftmailer.data_collector.class">Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector</parameter>
     <parameter key="swiftmailer.mailer.default.transport.name">smtp</parameter>
     <parameter key="swiftmailer.mailer.default.delivery.enabled">true</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.port">25</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.host">127.0.0.1</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.username">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.password">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">null</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">ssl</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.port">465</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.host">smtp.gmail.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.username">cea478.2014.2@gmail.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.password">2014.2.gps</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">login</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.timeout">30</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.source_ip">null</parameter>
     <parameter key="swiftmailer.spool.default.memory.path">/home/plinio/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/cache/dev/swiftmailer/spool/default</parameter>
     <parameter key="swiftmailer.mailer.default.spool.enabled">true</parameter>
     <parameter key="swiftmailer.mailer.default.plugin.impersonate">null</parameter>
-    <parameter key="swiftmailer.mailer.default.single_address">null</parameter>
+    <parameter key="swiftmailer.mailer.default.single_address">plinio.roque@yahoo.com.br</parameter>
+    <parameter key="swiftmailer.mailer.default.delivery_whitelist" type="collection"/>
     <parameter key="swiftmailer.spool.enabled">true</parameter>
     <parameter key="swiftmailer.delivery.enabled">true</parameter>
-    <parameter key="swiftmailer.single_address">null</parameter>
+    <parameter key="swiftmailer.single_address">plinio.roque@yahoo.com.br</parameter>
     <parameter key="swiftmailer.mailers" type="collection">
       <parameter key="default">swiftmailer.mailer.default</parameter>
     </parameter>
@@ -385,7 +386,9 @@
     <parameter key="assetic.value_supplier.class">Symfony\Bundle\AsseticBundle\DefaultValueSupplier</parameter>
     <parameter key="assetic.node.paths" type="collection"/>
     <parameter key="assetic.cache_dir">/home/plinio/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/cache/dev/assetic</parameter>
-    <parameter key="assetic.bundles" type="collection"/>
+    <parameter key="assetic.bundles" type="collection">
+      <parameter>HelpDeskBundle</parameter>
+    </parameter>
     <parameter key="assetic.twig_extension.class">Symfony\Bundle\AsseticBundle\Twig\AsseticExtension</parameter>
     <parameter key="assetic.twig_formula_loader.class">Assetic\Extension\Twig\TwigFormulaLoader</parameter>
     <parameter key="assetic.helper.dynamic.class">Symfony\Bundle\AsseticBundle\Templating\DynamicAsseticHelper</parameter>
@@ -1969,7 +1972,9 @@
             <argument type="service" id="templating.name_parser"/>
             <argument>false</argument>
             <argument type="collection"/>
-            <argument type="collection"/>
+            <argument type="collection">
+              <argument>HelpDeskBundle</argument>
+            </argument>
             <argument type="service">
               <service class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
                 <argument type="service" id="service_container"/>
@@ -2061,6 +2066,33 @@
           </service>
         </argument>
       </argument>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>HelpDeskBundle</argument>
+                  <argument>/home/plinio/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/Resources/HelpDeskBundle/views</argument>
+                  <argument>/\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>HelpDeskBundle</argument>
+                  <argument>/home/plinio/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views</argument>
+                  <argument>/\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
       <call method="addResource">
         <argument type="service">
           <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource" public="false">
@@ -2647,6 +2679,9 @@
       <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <argument type="service" id="swiftmailer.mailer.default.spool"/>
       <call method="registerPlugin">
+        <argument type="service" id="swiftmailer.plugin.redirecting"/>
+      </call>
+      <call method="registerPlugin">
         <argument type="service" id="swiftmailer.mailer.default.plugin.messagelogger"/>
       </call>
     </service>
@@ -2674,26 +2709,26 @@
               </argument>
             </argument>
             <call method="setUsername">
-              <argument>null</argument>
+              <argument>cea478.2014.2@gmail.com</argument>
             </call>
             <call method="setPassword">
-              <argument>null</argument>
+              <argument>2014.2.gps</argument>
             </call>
             <call method="setAuthMode">
-              <argument>null</argument>
+              <argument>login</argument>
             </call>
           </service>
         </argument>
       </argument>
       <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <call method="setHost">
-        <argument>127.0.0.1</argument>
+        <argument>smtp.gmail.com</argument>
       </call>
       <call method="setPort">
-        <argument>25</argument>
+        <argument>465</argument>
       </call>
       <call method="setEncryption">
-        <argument>null</argument>
+        <argument>ssl</argument>
       </call>
       <call method="setTimeout">
         <argument>30</argument>
@@ -2701,6 +2736,11 @@
       <call method="setSourceIp">
         <argument>null</argument>
       </call>
+    </service>
+    <service id="swiftmailer.plugin.redirecting" class="Swift_Plugins_RedirectingPlugin">
+      <tag name="swiftmailer.default.plugin"/>
+      <argument>plinio.roque@yahoo.com.br</argument>
+      <argument type="collection"/>
     </service>
     <service id="session.storage" alias="session.storage.native"/>
     <service id="debug.templating.engine.twig" alias="templating"/>

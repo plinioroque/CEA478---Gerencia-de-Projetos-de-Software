@@ -4,7 +4,6 @@ namespace Icea\CEA478\HelpDeskBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Icea\CEA478\HelpDeskBundle\Entity\Chamadas;
 use Icea\CEA478\HelpDeskBundle\Form\ChamadasType;
 
@@ -12,30 +11,38 @@ use Icea\CEA478\HelpDeskBundle\Form\ChamadasType;
  * Chamadas controller.
  *
  */
-class ChamadasController extends Controller
-{
+class ChamadasController extends Controller {
 
     /**
      * Lists all Chamadas entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findAll();
 
         return $this->render('HelpDeskBundle:Chamadas:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Chamadas entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
+        //inicia uma chamadaStatus
+        $emAux = $this->getDoctrine()->getManager();
+        
+        $status = $emAux->getRepository('HelpDeskBundle:ChamadaStatus')->find(1);
+        $cliente = $emAux->getRepository('HelpDeskBundle:Usuario')->find(1);
+        
         $entity = new Chamadas();
+        $entity->setChamadaStatus($status);
+        $entity->setHoraData(new \DateTime);
+        $entity->setCliente($cliente);
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -43,13 +50,30 @@ class ChamadasController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('chamadas_show', array('id' => $entity->getId())));
+            $message = \Swift_Message::newInstance()
+                    ->setSubject('Confirmação de abertura de Chamado')
+                    ->setFrom('cea478.2914.2@gmail.com')
+                    ->setTo($entity->getCliente()->getUsername())
+                    ->setBody('Você enviou um chamado ao NTI com sucesso! Segue os dados do serviço solicitad:'
+                    . 'ID:' . $entity->getId()  . 'Descrição: ' . $entity->getDescricaoProblema()
+                    . 'Categoria: ' . $entity->getChamadaCategoria() .'Local: ' . $entity->getChamadaLocal()
+                    . 'Data/Horario: ' . $entity->getHoraData()->format('d-m-Y H:i:s') . '')
+            ;
+            $this->get('mailer')->send($message);
+            
+            $chamadas = $emAux->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $cliente->getId()));
+            return $this->render('HelpDeskBundle:Cliente:home.html.twig', array(
+            'usuario' => $cliente,
+            'chamadas' => $chamadas,
+            'data' => new \DateTime )
+            );
         }
 
-        return $this->render('HelpDeskBundle:Chamadas:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+        return $this->render('HelpDeskBundle:Cliente:abrirChamada.html.twig', array(
+                    'entity' => $entity,
+                    'cliente' => $cliente,
+                    'form' => $form->createView(),
+                    'data' => new \DateTime
         ));
     }
 
@@ -60,8 +84,7 @@ class ChamadasController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Chamadas $entity)
-    {
+    private function createCreateForm(Chamadas $entity) {
         $form = $this->createForm(new ChamadasType(), $entity, array(
             'action' => $this->generateUrl('chamadas_create'),
             'method' => 'POST',
@@ -76,14 +99,13 @@ class ChamadasController extends Controller
      * Displays a form to create a new Chamadas entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Chamadas();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('HelpDeskBundle:Chamadas:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +113,7 @@ class ChamadasController extends Controller
      * Finds and displays a Chamadas entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
@@ -104,8 +125,8 @@ class ChamadasController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HelpDeskBundle:Chamadas:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -113,8 +134,7 @@ class ChamadasController extends Controller
      * Displays a form to edit an existing Chamadas entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
@@ -127,21 +147,20 @@ class ChamadasController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HelpDeskBundle:Chamadas:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Chamadas entity.
-    *
-    * @param Chamadas $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Chamadas $entity)
-    {
+     * Creates a form to edit a Chamadas entity.
+     *
+     * @param Chamadas $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Chamadas $entity) {
         $form = $this->createForm(new ChamadasType(), $entity, array(
             'action' => $this->generateUrl('chamadas_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -151,12 +170,12 @@ class ChamadasController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Chamadas entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
@@ -176,17 +195,17 @@ class ChamadasController extends Controller
         }
 
         return $this->render('HelpDeskBundle:Chamadas:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Chamadas entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -212,13 +231,13 @@ class ChamadasController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('chamadas_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('chamadas_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }
