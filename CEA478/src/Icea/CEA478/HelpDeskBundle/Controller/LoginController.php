@@ -29,13 +29,11 @@ class LoginController extends Controller {
 
 
             if ($user) {
-                $chamadas = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $user->getId()));
-                return $this->render('HelpDeskBundle:Cliente:home.html.twig', array(
-                            // ...
-                            'usuario' => $user,
-                            'chamadas' => $chamadas,
-                            'data' => new \DateTime
-                ));
+                if(strcmp($user->getUsuarioClasse()->getDescricao(),"Administrador")==0){
+                    return $this->redirect('/helpdesk/'.$user->getId().'/homeAdmin/', 302);
+                }
+
+                return $this->redirect('/helpdesk/'.$user->getId().'/home/', 302);
             }
         }
         return $this->render('HelpDeskBundle:Login:login.html.twig', array(

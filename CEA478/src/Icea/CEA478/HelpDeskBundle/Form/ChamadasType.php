@@ -20,6 +20,7 @@ class ChamadasType extends AbstractType {
                 ->add('observacoes', null, array('attr' => array('class' => 'form-control input-xlarge', 'rows' => '3')))
                 ->add('contatoAdicional1', null, array('attr' => array('class' => 'form-control input-xlarge')))
                 ->add('contatoAdicional2', null, array('attr' => array('class' => 'form-control')))
+                ->add('chamadaNivel', null, array('attr' => array('class'=>'form-control')))
         ;
     }
 

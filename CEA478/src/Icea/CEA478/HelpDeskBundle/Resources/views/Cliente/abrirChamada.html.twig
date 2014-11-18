@@ -28,8 +28,8 @@
                 <div class="list-group">
                     <a href="{{path('cliente_home', {'userId': cliente.id } )}}" class="list-group-item">Início</a>
                     <a href="{{path('abrir_chamada', { 'userId': cliente.id } )}}" class="list-group-item">Abrir Chamada</a>
-                    <a href="#" class="list-group-item">Minhas Chamadas</a>
-                    <a href="#" class="list-group-item">Ver Todas Chamadas</a>
+                    <a href="{{path('minhas_chamadas', { 'userId': cliente.id } )}}" class="list-group-item">Minhas Chamadas</a>
+                    <a href="{{path('todas_chamadas', { 'userId': cliente.id } )}}" class="list-group-item">Ver Todas Chamadas</a>
                     <a href="{{path('login')}}" class="list-group-item">Sair</a>
                 </div>
             </div>

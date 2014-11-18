@@ -28,3 +28,7 @@ chamadas_delete:
     path:     /{id}/delete
     defaults: { _controller: "HelpDeskBundle:Chamadas:delete" }
     requirements: { _method: post|delete }
+
+definir_prioridade:
+    path:   /admin/{id}/definirPrioridade
+    defaults: { _controller: "HelpDeskBundle:Chamadas:prioridade" }

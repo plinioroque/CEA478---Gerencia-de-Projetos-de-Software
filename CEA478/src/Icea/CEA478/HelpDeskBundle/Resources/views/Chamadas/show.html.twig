@@ -1,52 +1,91 @@
-{% extends '::base.html.twig' %}
+{% extends '::templateAll.html.twig' %}
 
 {% block body -%}
-    <h1>Chamadas</h1>
+    {% block container %}
+        <h1>Chamada {{ entity.id }}</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Horadata</th>
-                <td>{{ entity.horaData|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Descricaoproblema</th>
-                <td>{{ entity.descricaoProblema }}</td>
-            </tr>
-            <tr>
-                <th>Observacoes</th>
-                <td>{{ entity.observacoes }}</td>
-            </tr>
-            <tr>
-                <th>Contatoadicional1</th>
-                <td>{{ entity.contatoAdicional1 }}</td>
-            </tr>
-            <tr>
-                <th>Contatoadicional2</th>
-                <td>{{ entity.contatoAdicional2 }}</td>
-            </tr>
-            <tr>
-                <th>Descricaosolucao</th>
-                <td>{{ entity.descricaoSolucao }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table table-bordered table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td width="80%">{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Data / Horário</th>
+                    <td>{{ entity.horaData|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Solicitante</th>
+                    <td>{{ entity.cliente }}</td>
+                </tr>
+                <tr>
+                    <th>Descrição do Problema</th>
+                    <td>{{ entity.descricaoProblema }}</td>
+                </tr>
+                <tr>
+                    <th>Local do Problema</th>
+                    <td>{{ entity.chamadaLocal }}</td>
+                </tr>
+                <tr>
+                    <th>Observações</th>
+                    <td>{{ entity.observacoes }}</td>
+                </tr>
+                <tr>
+                    <th>Contato Adicional(Celular)</th>
+                    <td>{{ entity.contatoAdicional1 }}</td>
+                </tr>
+                <tr>
+                    <th>E-mail Adicional</th>
+                    <td>{{ entity.contatoAdicional2 }}</td>
+                </tr>
+                <tr>
+                    <th>Responsável</th>
+                    <td>{{ entity.responsavel }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                        {% if entity.chamadaStatus=="Em Aberto" %}
+                        <td><h4><label  class="label label-primary">{{ entity.chamadaStatus }}</label></h4></td>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('chamadas') }}">
+                    {% elseif entity.chamadaStatus=="Em Andamento" %}
+                        <td><h4><label  class="label label-warning">{{ entity.chamadaStatus }}</label></h4></td>
+                                {#                                        {% endif %}#}
+
+                    {% elseif entity.chamadaStatus=="Concluída" %}
+                        <td><h4><label  class="label label-success">{{ entity.chamadaStatus }}</label></h4></td>
+
+                    {% elseif entity.chamadaStatus=="Cancelada" %}
+                        <td><h4><label  class="label label-danger">{{ entity.chamadaStatus }}</label></h4></td>
+                            {% endif %}
+                </tr>
+                <tr>
+                    <th>Prioridade</th>
+                        {% if entity.chamadaNivel=="Baixa" %}
+                        <td><h4><label  class="label label-success">{{ entity.chamadaNivel }}</label></h4></td>
+
+                    {% elseif entity.chamadaNivel=="Média" %}
+                        <td><h4><label  class="label label-primary">{{ entity.chamadaNivel }}</label></h4></td>
+
+                    {% elseif entity.chamadaNivel=="Alta" %}
+                        <td><h4><label  class="label label-warning">{{ entity.chamadaNivel }}</label></h4></td>
+
+                    {% elseif entity.chamadaNivel=="Crítica" %}
+                        <td><h4><label  class="label label-danger">{{ entity.chamadaNivel }}</label></h4></td>
+
+                    {% elseif entity.chamadaNivel=="" %}
+                        <td><h4><label  class="label label-default">Não Definida</label></h4></td>
+                            {% endif %}
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+        <a class="btn btn-danger" href="{{ path('chamadas_delete' , {'id': entity.id}) }}">Delete</a>
+        <br><br>
+        <a class="btn btn-primary" href="{{ path('chamadas') }}">
             Back to the list
         </a>
-    </li>
-    <li>
-        <a href="{{ path('chamadas_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    {% endblock %}
 {% endblock %}

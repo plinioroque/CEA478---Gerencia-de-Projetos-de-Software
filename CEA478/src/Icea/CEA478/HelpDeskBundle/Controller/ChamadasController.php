@@ -34,10 +34,10 @@ class ChamadasController extends Controller {
     public function createAction(Request $request) {
         //inicia uma chamadaStatus
         $emAux = $this->getDoctrine()->getManager();
-        
+
         $status = $emAux->getRepository('HelpDeskBundle:ChamadaStatus')->find(1);
-        $cliente = $emAux->getRepository('HelpDeskBundle:Usuario')->find(1);
-        
+        $cliente = $emAux->getRepository('HelpDeskBundle:Usuario')->find(4);
+
         $entity = new Chamadas();
         $entity->setChamadaStatus($status);
         $entity->setHoraData(new \DateTime);
@@ -52,20 +52,20 @@ class ChamadasController extends Controller {
             $em->flush();
             $message = \Swift_Message::newInstance()
                     ->setSubject('Confirmação de abertura de Chamado')
-                    ->setFrom('cea478.2914.2@gmail.com')
-                    ->setTo($entity->getCliente()->getUsername())
-                    ->setBody('Você enviou um chamado ao NTI com sucesso! Segue os dados do serviço solicitad:'
-                    . 'ID:' . $entity->getId()  . 'Descrição: ' . $entity->getDescricaoProblema()
-                    . 'Categoria: ' . $entity->getChamadaCategoria() .'Local: ' . $entity->getChamadaLocal()
+                    ->setFrom('cea478.2014.2@gmail.com')
+                    ->setTo($cliente->getUsername())
+                    ->setBody('Você enviou um chamado ao NTI com sucesso! Segue os dados do serviço solicitado:'
+                    . 'ID:' . $entity->getId() . 'Descrição: ' . $entity->getDescricaoProblema()
+                    . 'Categoria: ' . $entity->getChamadaCategoria() . 'Local: ' . $entity->getChamadaLocal()
                     . 'Data/Horario: ' . $entity->getHoraData()->format('d-m-Y H:i:s') . '')
             ;
             $this->get('mailer')->send($message);
-            
+
             $chamadas = $emAux->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $cliente->getId()));
             return $this->render('HelpDeskBundle:Cliente:home.html.twig', array(
-            'usuario' => $cliente,
-            'chamadas' => $chamadas,
-            'data' => new \DateTime )
+                        'usuario' => $cliente,
+                        'chamadas' => $chamadas,
+                        'data' => new \DateTime)
             );
         }
 
@@ -127,6 +127,7 @@ class ChamadasController extends Controller {
         return $this->render('HelpDeskBundle:Chamadas:show.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => $deleteForm->createView(),
+                    'data' => new \DateTime
         ));
     }
 
@@ -191,7 +192,7 @@ class ChamadasController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('chamadas_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_home', array('userId' => $entity->getCliente()->getId())));
         }
 
         return $this->render('HelpDeskBundle:Chamadas:edit.html.twig', array(
@@ -238,6 +239,31 @@ class ChamadasController extends Controller {
                         ->add('submit', 'submit', array('label' => 'Delete'))
                         ->getForm()
         ;
+    }
+
+    /**
+     * Displays a form to edit a priority an existing Chamadas entity.
+     *
+     */
+    public function prioridadeAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
+
+        $user = $entity->getCliente();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Chamadas entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('HelpDeskBundle:Chamadas:definirPrioridade.html.twig', array(
+                    'usuario' => $user,
+                    'chamada' => $entity,
+                    'form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                    'data' => new \DateTime,
+        ));
     }
 
 }

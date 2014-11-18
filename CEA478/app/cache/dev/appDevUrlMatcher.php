@@ -197,6 +197,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
                 not_chamadas_delete:
 
+                // definir_prioridade
+                if (0 === strpos($pathinfo, '/chamadas/admin') && preg_match('#^/chamadas/admin/(?P<id>[^/]++)/definirPrioridade$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'definir_prioridade')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ChamadasController::prioridadeAction',));
+                }
+
             }
 
             if (0 === strpos($pathinfo, '/chamadacategoria')) {
@@ -652,6 +657,59 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
 
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'abrir_chamada')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::abrirChamadaAction',));
+            }
+
+            // minhas_chamadas
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/minhasChamadas$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'minhas_chamadas')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::minhasChamadasAction',));
+            }
+
+            // todas_chamadas
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/todasChamadas$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'todas_chamadas')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::todasChamadasAction',));
+            }
+
+            // busca
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/todasChamadas/busca$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'busca')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\BuscaChamadosController::buscaAction',));
+            }
+
+            // todas_chamadas_admin
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/todasChamadasAdmin$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'todas_chamadas_admin')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::todasChamadasAdminAction',));
+            }
+
+            // admin_home
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/homeAdmin/?$#s', $pathinfo, $matches)) {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'admin_home');
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_home')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::homeAdminAction',));
+            }
+
+            // sem_prioridade
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/chamadas/admin/semPrioridade/?$#s', $pathinfo, $matches)) {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'sem_prioridade');
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'sem_prioridade')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::semPrioridadeAction',));
+            }
+
+            // chamadas_em_aberto
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/chamadas/admin/emAberto$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chamadas_em_aberto')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::emAbertoAction',));
+            }
+
+            // chamadas_em_andamento
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/chamadas/admin/emAndamento$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chamadas_em_andamento')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::emAndamentoAction',));
+            }
+
+            // chamadas_finalizadas
+            if (preg_match('#^/helpdesk/(?P<userId>[^/]++)/chamadas/admin/finalizadas$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chamadas_finalizadas')), array (  '_controller' => 'Icea\\CEA478\\HelpDeskBundle\\Controller\\ClienteController::finalizadasAction',));
             }
 
         }

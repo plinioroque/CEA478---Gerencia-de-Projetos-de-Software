@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Chamadas</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Horadata</th>
+                <td>{{ entity.horaData|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Descricaoproblema</th>
+                <td>{{ entity.descricaoProblema }}</td>
+            </tr>
+            <tr>
+                <th>Observacoes</th>
+                <td>{{ entity.observacoes }}</td>
+            </tr>
+            <tr>
+                <th>Contatoadicional1</th>
+                <td>{{ entity.contatoAdicional1 }}</td>
+            </tr>
+            <tr>
+                <th>Contatoadicional2</th>
+                <td>{{ entity.contatoAdicional2 }}</td>
+            </tr>
+            <tr>
+                <th>Descricaosolucao</th>
+                <td>{{ entity.descricaoSolucao }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('chamadas') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('chamadas_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

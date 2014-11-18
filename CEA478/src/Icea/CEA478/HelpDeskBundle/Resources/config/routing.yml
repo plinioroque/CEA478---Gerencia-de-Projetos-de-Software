@@ -50,3 +50,39 @@ cliente_home:
 abrir_chamada:
     path:     /helpdesk/{userId}/abrirChamada/
     defaults: { _controller: HelpDeskBundle:Cliente:abrirChamada }
+    
+minhas_chamadas:
+    path:     /helpdesk/{userId}/minhasChamadas
+    defaults: { _controller: HelpDeskBundle:Cliente:minhasChamadas }
+
+todas_chamadas:
+    path:     /helpdesk/{userId}/todasChamadas
+    defaults: { _controller: HelpDeskBundle:Cliente:todasChamadas }
+    
+busca:
+    path:     /helpdesk/{userId}/todasChamadas/busca
+    defaults: { _controller: HelpDeskBundle:BuscaChamados:busca }
+
+todas_chamadas_admin:
+    path:     /helpdesk/{userId}/todasChamadasAdmin
+    defaults: { _controller: HelpDeskBundle:Cliente:todasChamadasAdmin }    
+    
+admin_home:
+    path:     /helpdesk/{userId}/homeAdmin/
+    defaults: { _controller: HelpDeskBundle:Cliente:homeAdmin }    
+    
+sem_prioridade:
+    path:     /helpdesk/{userId}/chamadas/admin/semPrioridade/
+    defaults: { _controller: HelpDeskBundle:Cliente:semPrioridade }
+    
+chamadas_em_aberto:
+    path:     /helpdesk/{userId}/chamadas/admin/emAberto
+    defaults: { _controller: HelpDeskBundle:Cliente:emAberto }
+
+chamadas_em_andamento:
+    path:     /helpdesk/{userId}/chamadas/admin/emAndamento
+    defaults: { _controller: HelpDeskBundle:Cliente:emAndamento }
+    
+chamadas_finalizadas:
+    path:     /helpdesk/{userId}/chamadas/admin/finalizadas
+    defaults: { _controller: HelpDeskBundle:Cliente:finalizadas }

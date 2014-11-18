@@ -10,8 +10,8 @@
                 <div class="list-group">
                     <a href="{{path('cliente_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
                     <a href="{{path('abrir_chamada', { 'userId': usuario.id } )}}" class="list-group-item">Abrir Chamada</a>
-                    <a href="#" class="list-group-item">Minhas Chamadas</a>
-                    <a href="#" class="list-group-item">Ver Todas Chamadas</a>
+                    <a href="{{path('minhas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Minhas Chamadas</a>
+                    <a href="{{path('todas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Ver Todas Chamadas</a>
                     <a href="{{path('login')}}" class="list-group-item">Sair</a>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <img class="img-responsive" src="{{asset('bundles/iceasisnti/images/logoicea.jpg')}}" alt="">
                     <div class="caption-full">
                         <br><br>
-                        
+
                         <a class="list-group-item lead well-sm"><label>Nome:</label> {{usuario.nome}}</a>
                         <a class="list-group-item lead well-sm"><label>E-mail:</label> {{usuario.username}}</a>
                         <a class="list-group-item lead well-sm"><label>Total de Ordens Solicitadas:</label> {{chamadas|length}}</a>

@@ -1,0 +1,115 @@
+{% extends '::templateAll.html.twig' %}
+
+{% block body -%}    
+    {% block container %}
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">HelpDesk</p>
+                <div class="list-group">
+                    <a href="{{path('cliente_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
+                    <a href="{{path('abrir_chamada', { 'userId': usuario.id } )}}" class="list-group-item">Abrir Chamada</a>
+                    <a href="{{path('minhas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Minhas Chamadas</a>
+                    <a href="{{path('todas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Ver Todas Chamadas</a>
+                    <a href="{{path('login')}}" class="list-group-item">Sair</a>
+                </div>
+            </div>
+
+
+            <div class="col-md-9">
+                <p class="lead">Todas Chamadas</p>
+
+                <div class="col-md-12">
+                    <form class="form form-control-static" action="{{path('busca', { 'userId': usuario.id })}}" method="post">
+                        <div name="filtro" class="panel">
+                            <div class="col-md-3">
+                                Opções de filtro:
+                                <select id="tipoFiltro" name="tipoFiltro" class="form-control" >
+                                    <option value="0"></option>
+                                    <option value="1">A partir de</option>
+                                    <option value="2">Antes de</option>
+                                    <option value="3">Dia</option>
+                                    <option value="4">Categoria</option>
+                                    <option value="5">Local</option>
+                                    <option value="6">Prioridade</option>
+                                    <option value="7">Responsável</option>
+                                    <option value="8">Solicitante</option>
+                                    <option value="9">Status</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                Informe os parametros do filtro que deseja:
+                                <input type="text" class="form-control input-xlarge" name="valorFiltro" id="valorFiltro"/>
+                            </div>
+                            <div class="col-md-3">
+                                <br />
+                                <button type="submit" id="filtro_submit" name="filtro_submit" class="btn btn-default">Filtrar</button>  
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                {% if erro == "" %}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Data / Horário</th>
+                                <th>Descriçao do Problema</th>
+                                <th>Observações</th>
+                                <th>Solicitante</th>
+                                <th>Status da Chamada</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            {% for entity in entities|reverse %}
+                                <tr>
+                                    <td width="5%"><a href="{{ path('chamadas_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+
+                                    <td width="15%">{% if entity.horaData %}{{ entity.horaData|date('d-m-Y H:i:s') }}{% endif %}</td>
+
+                                    <td width="20%" align="left">{{ entity.descricaoProblema|slice(0, 25) }}<a href="{{ path('chamadas_show', { 'id': entity.id }) }}"><b>...</b></a></td>
+
+                                    <td width="20%" align="left">{{ entity.observacoes|slice(0, 20) }}<a href="{{ path('chamadas_show', { 'id': entity.id }) }}"><b>...</b></a></td>
+
+                                    <td width="15%">{{ entity.cliente }}</td>
+
+                                    {% if entity.chamadaStatus=="Em Aberto" %}
+                                        <td align="center"><label  class="label label-primary">{{ entity.chamadaStatus }}</label></td>
+
+                                    {% elseif entity.chamadaStatus=="Em Andamento" %}
+                                        <td align="center"><label  class="label label-warning">{{ entity.chamadaStatus }}</label></td>
+                                            {#                                        {% endif %}#}
+
+                                    {% elseif entity.chamadaStatus=="Concluída" %}
+                                        <td align="center"><label  class="label label-success">{{ entity.chamadaStatus }}</label></td>
+
+                                    {% elseif entity.chamadaStatus=="Cancelada" %}
+                                        <td align="center"><label  class="label label-danger">{{ entity.chamadaStatus }}</label></td>
+                                        {% endif %}
+
+                                    <td>
+                                        <a class="btn btn-default" href="{{ path('chamadas_show', { 'id': entity.id }) }}">Detalhes</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div id="erro" class="alert" >
+                        <p class="lead label label-danger">
+                            {{erro}}
+                        </p>
+                        <br />
+                        <p class="lead label label-danger">
+                            {{solucao}}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}
