@@ -1,75 +1,48 @@
 {% extends '::templateAll.html.twig' %}
 
-{% block body -%}    
-    {% block container %}
+{% block container %}
+    <div class="col-md-9">
+        <p class="lead">Minhas Chamadas</p>
+        <table class="table table-responsive table-hover">
+            <thead>
+                <tr>
+                    {#                                    <th>Id</th>#}
+                    <th>Data / Horário</th>
+                    <th>Descriçao</th>
+                    <th>Observações</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody align="center">
+                {% for entity in entities|reverse %}
+                    <tr>
+                        <td width="20%">{% if entity.horaData %}{{ entity.horaData|date('d-m-Y H:i:s') }}{% endif %}</td>
 
-        <div class="container">
-            <div class="row">
+                        <td width="22%" align="left">{{ entity.descricaoProblema|slice(0, 30) }}<a href="{{ path('chamadas_show', { 'id': entity.id }) }}"><b>...</b></a></td>
 
-                <div class="col-md-3">
-                    <p class="lead">HelpDesk</p>
-                    <div class="list-group">
-                        <a href="{{path('cliente_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
-                        <a href="{{path('abrir_chamada', { 'userId': usuario.id } )}}" class="list-group-item">Abrir Chamada</a>
-                        <a href="{{path('minhas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Minhas Chamadas</a>
-                        <a href="{{path('todas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Ver Todas Chamadas</a>
-                        <a href="{{path('login')}}" class="list-group-item">Sair</a>
-                    </div>
-                </div>
+                        <td width="22%" align="left">{{ entity.observacoes|slice(0, 25) }}<a href="{{ path('chamadas_show', { 'id': entity.id }) }}"><b>...</b></a></td>
 
-                <div class="col-md-9">
-                    <p class="lead">Minhas Chamadas</p>
-                    <div class="thumbnail thumbnail-responsive">
-                        <table class="table table-responsive table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    {#                                    <th>Id</th>#}
-                                    <th>Data / Horário</th>
-                                    <th>Descriçao do Problema</th>
-                                    <th>Observações</th>
-                                    <th>Solicitante</th>
-                                    <th>Status da Chamada</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody align="center">
-                                {% for entity in entities|reverse %}
-                                    <tr>
-                                        {#                                        <td width="5%"><a href="{{ path('chamadas_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+                        {% if entity.chamadaStatus=="Em Aberto" %}
+                            <td width="15%" ><label  class="label label-primary">{{ entity.chamadaStatus }}</label></td>
 
-                                        <td width="20%">{% if entity.horaData %}{{ entity.horaData|date('d-m-Y H:i:s') }}{% endif %}</td>
+                        {% elseif entity.chamadaStatus=="Em Andamento" %}
+                            <td width="15%" ><label  class="label label-warning">{{ entity.chamadaStatus }}</label></td>
 
-                                        <td width="22%" align="left">{{ entity.descricaoProblema|slice(0, 25) }}<a href="{{ path('chamadas_show', { 'id': entity.id }) }}"><b>...</b></a></td>
+                        {% elseif entity.chamadaStatus=="Concluída" %}
+                            <td width="15%" ><label  class="label label-success">{{ entity.chamadaStatus }}</label></td>
 
-                                        <td width="22%" align="left">{{ entity.observacoes|slice(0, 20) }}<a href="{{ path('chamadas_show', { 'id': entity.id }) }}"><b>...</b></a></td>
+                        {% elseif entity.chamadaStatus=="Cancelada" %}
+                            <td width="15%" ><label  class="label label-danger">{{ entity.chamadaStatus }}</label></td>
+                            {% endif %}
 
-                                        <td width="15%">{{ entity.cliente }}</td>
-
-                                        {% if entity.chamadaStatus=="Em Aberto" %}
-                                            <td width="15%" align="center"><label  class="label label-primary">{{ entity.chamadaStatus }}</label></td>
-
-                                        {% elseif entity.chamadaStatus=="Em Andamento" %}
-                                            <td width="15%" align="center"><label  class="label label-warning">{{ entity.chamadaStatus }}</label></td>
-                                                {#                                        {% endif %}#}
-
-                                        {% elseif entity.chamadaStatus=="Concluída" %}
-                                            <td width="15%" align="center"><label  class="label label-success">{{ entity.chamadaStatus }}</label></td>
-
-                                        {% elseif entity.chamadaStatus=="Cancelada" %}
-                                            <td width="15%" align="center"><label  class="label label-danger">{{ entity.chamadaStatus }}</label></td>
-                                            {% endif %}
-
-                                        <td>
-                                            <a class="btn btn-default" href="{{ path('chamadas_show', { 'id': entity.id }) }}" alt="Detalhes"><i class="glyphicon glyphicon-th"></i></a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endblock %}
+                        <td>
+                            <a class="btn btn-default" href="{{ path('chamadas_show', { 'id': entity.id }) }}" alt="Detalhes">Detalhes</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

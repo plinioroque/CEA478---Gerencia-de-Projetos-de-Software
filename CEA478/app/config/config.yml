@@ -66,4 +66,4 @@ swiftmailer:
     username:  cea478.2014.2@gmail.com
     password:  2014.2.gps
     spool:     { type: memory }
-    delivery_address: plinio.roque@yahoo.com.br
+#    delivery_address: plinio.roque@yahoo.com.br

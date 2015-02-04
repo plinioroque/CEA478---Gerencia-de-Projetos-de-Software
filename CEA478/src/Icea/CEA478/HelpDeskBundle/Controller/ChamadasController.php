@@ -32,22 +32,21 @@ class ChamadasController extends Controller {
      *
      */
     public function createAction(Request $request) {
-        //inicia uma chamadaStatus
-        $emAux = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
 
-        $status = $emAux->getRepository('HelpDeskBundle:ChamadaStatus')->find(1);
-        $cliente = $emAux->getRepository('HelpDeskBundle:Usuario')->find(4);
+        $status = $em->getRepository('HelpDeskBundle:ChamadaStatus')->findOneBy(array('descricao'=>'Em Aberto'));
+        //inicia uma chamadaStatus
+        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($session->get('user')->getId());
 
         $entity = new Chamadas();
-        $entity->setChamadaStatus($status);
         $entity->setHoraData(new \DateTime);
         $entity->setCliente($cliente);
-
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $entity->setChamadaStatus($status);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
             $message = \Swift_Message::newInstance()
@@ -61,7 +60,7 @@ class ChamadasController extends Controller {
             ;
             $this->get('mailer')->send($message);
 
-            $chamadas = $emAux->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $cliente->getId()));
+            $chamadas = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $cliente->getId()));
             return $this->render('HelpDeskBundle:Cliente:home.html.twig', array(
                         'usuario' => $cliente,
                         'chamadas' => $chamadas,
@@ -115,18 +114,22 @@ class ChamadasController extends Controller {
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
 
         $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Chamadas entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-
+        
+        if ($session->get('user')->getRoles() == 'ROLE_ADMIN') {
+            return $this->render('HelpDeskBundle:Admin:showAdmin.html.twig', array(
+                        'entity' => $entity,
+                        'data' => new \DateTime
+            ));
+        }
         return $this->render('HelpDeskBundle:Chamadas:show.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
                     'data' => new \DateTime
         ));
     }
@@ -192,7 +195,7 @@ class ChamadasController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_home', array('userId' => $entity->getCliente()->getId())));
+            return $this->redirect($this->generateUrl('home'));
         }
 
         return $this->render('HelpDeskBundle:Chamadas:edit.html.twig', array(
@@ -245,7 +248,7 @@ class ChamadasController extends Controller {
      * Displays a form to edit a priority an existing Chamadas entity.
      *
      */
-    public function prioridadeAction($id) {
+    public function definirPrioridadeAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
 
@@ -255,14 +258,133 @@ class ChamadasController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('HelpDeskBundle:Chamadas:definirPrioridade.html.twig', array(
+        return $this->render('HelpDeskBundle:Admin:definirPrioridade.html.twig', array(
                     'usuario' => $user,
                     'chamada' => $entity,
                     'form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
                     'data' => new \DateTime,
+        ));
+    }
+
+    /**
+     * cancelar Chamadas.
+     *
+     */
+    public function cancelAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Chamadas entity.');
+        }
+
+
+        $status = $em->getRepository('HelpDeskBundle:ChamadaStatus')->findOneBy(array('descricao' => 'Cancelada'));
+
+        $entity->setchamadaStatus($status);
+
+        if ($entity) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('chamadas_show', array('id' => $id)));
+        }
+
+        return $this->redirect($this->generateUrl('chamadas_show', array('id' => $id)));
+    }
+
+    /**
+     * reabrir Chamadas.
+     *
+     */
+    public function openAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Chamadas entity.');
+        }
+
+
+        $status = $em->getRepository('HelpDeskBundle:ChamadaStatus')->findOneBy(array('descricao' => 'Em Aberto'));
+//        $editForm = $this->createEditForm($entity);
+
+        $entity->setchamadaStatus($status);
+//        $editForm->submit(array('chamadaStatus'=>'Cancelada'));
+//        $editForm->;
+
+        if ($entity) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('chamadas_show', array('id' => $id)));
+        }
+
+        return $this->redirect($this->generateUrl('chamadas_show', array('id' => $id)));
+    }
+
+    /**
+     * finalizar Chamadas.
+     *
+     */
+    public function finalizarAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Chamadd nao encontrada!.');
+        }
+
+
+        $status = $em->getRepository('HelpDeskBundle:ChamadaStatus')->findOneBy(array('descricao' => 'Concluída'));
+
+        $entity->setchamadaStatus($status);
+
+        if ($entity) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('chamadas_show', array('id' => $id)));
+        }
+
+        return $this->redirect($this->generateUrl('chamadas_show', array('id' => $id)));
+    }
+
+    /*
+     * renderiza formulario para finalizar um chamado
+     */
+
+    public function finalizarEditAction($id) {
+        $session = $this->getRequest()->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $chamada = $em->getRepository('HelpDeskBundle:Chamadas')->find($id);
+        $editForm = $this->createEditForm($chamada);
+        if ($session->get('user')->getRoles() == 'ROLE_ADMIN') {
+            if ($chamada->getResponsavel()->getId == $session->get('user')->getId()) {
+                return $this->render('HelpDeskBundle:Admin:finalizarChamada.html.twig', array(
+                            'solicitante' => $session->get('user'),
+                            'chamada' => $chamada,
+                            'form' => $editForm->createView(),
+                            'data' => new \DateTime,
+                ));
+            }
+            return $this->render('HelpDeskBundle:Default:erro.html.twig', array(
+            'erro'=> 'Acesso negado! Este chamado é de responsabilidade de outro usuário.',
+            'exp'=> 'Chamados só podem ser finalizados pelo usuário que o solicitou ou pelo administrador responsável.'
+        ));
+        }
+        if ($chamada->getSolicitante()->getId == $session->get('user')->getId()) {
+            return $this->render('HelpDeskBundle:Cliente:finalizarChamada.html.twig', array(
+                        'solicitante' => $session->get('user'),
+                        'chamada' => $chamada,
+                        'form' => $editForm->createView(),
+                        'data' => new \DateTime,
+            ));
+        }
+        return $this->render('HelpDeskBundle:Default:erro.html.twig', array(
+            'erro'=> 'Acesso negado! Este chamado foi solicitado por outro usuário.',
+            'exp'=> 'Chamados só podem ser finalizados pelo usuário que o solicitou ou pelo admnistrador responsável.'
         ));
     }
 

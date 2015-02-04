@@ -1,131 +1,94 @@
 {% extends '::templateAll.html.twig' %}
 
-{% block stylesheets %}
-    <link href="{{asset('bundles/helpdesk/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('bundles/helpdesk/css/styles.css')}}" rel="stylesheet">
-    <link href="{{asset('bundles/helpdesk/css/parsley/parsley.css')}}" rel="stylesheet">
-    <script language="Javascript"> function validacaoEmail(field) {
-            usuario = field.value.substring(0, field.value.indexOf("@"));
-            dominio = field.value.substring(field.value.indexOf("@") + 1, field.value.length);
-            if ((usuario.length >= 1) && (dominio.length >= 3) && (usuario.search("@") == -1) && (dominio.search("@") == -1) && (usuario.search(" ") == -1) && (dominio.search(" ") == -1) && (dominio.search(".") != -1) && (dominio.indexOf(".") >= 1) && (dominio.lastIndexOf(".") < dominio.length - 1)) {
-                document.getElementById("msgemail").innerHTML = "E-mail válido";
-                alert("E-mail valido");
-            } else {
-                document.getElementById("msgemail").innerHTML = "<font color='red'>E-mail inválido </font>";
-                alert("E-mail invalido");
-            }
-        }</script>
+{% block container %}
 
-{% endblock %}
-
-{% block body -%}    
-    {% block container %}
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">HelpDesk</p>
-                <div class="list-group">
-                    <a href="{{path('cliente_home', {'userId': cliente.id } )}}" class="list-group-item">Início</a>
-                    <a href="{{path('abrir_chamada', { 'userId': cliente.id } )}}" class="list-group-item">Abrir Chamada</a>
-                    <a href="{{path('minhas_chamadas', { 'userId': cliente.id } )}}" class="list-group-item">Minhas Chamadas</a>
-                    <a href="{{path('todas_chamadas', { 'userId': cliente.id } )}}" class="list-group-item">Ver Todas Chamadas</a>
-                    <a href="{{path('login')}}" class="list-group-item">Sair</a>
+        <div class="col-md-9">
+            {{form_start(form, { 'attr': {'class':'form-horizontal well'} })}}
+            <fieldset>
+                <legend>Iniciar uma Chamada</legend>
+                <div class="col-lg-12">
+                    <label class="control-label" for="input01">Solicitante: </label>
+                    <div class="controls">
+                        <input class="form-control input-xlarge" value="{{cliente.nome}}" disabled="true">
+                        <p class="help-block">Nome do usuário solicitante.</p>
+                    </div>
                 </div>
-            </div>
+                <div class="col-lg-6">
+                    <label class="control-label" for="input02">E-mail principal: </label>
+                    <div class="controls">
+                        <input class="form-control" id='username' name='username'  value="{{cliente.username}}" disabled="true">
+                        <p class="help-block">Email principal do solicitante.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="control-label" for="input03">Telefone/Ramal: </label>
+                    <div class="controls">
+                        <input class="form-control" value="{{cliente.telefone}}" disabled="true">
+                        <p class="help-block">Telefone ou ramal principal do solicitante.</p>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <label class="control-label" for="descricaoProblema">Descrição:</label>
+                    <div class="controls">
+                        {{form_widget(form.descricaoProblema)}}
+                        {{form_errors(form.descricaoProblema) }}
+                    </div>
+                    <p class="help-block">Escreva uma breve descrição do problema ocorrido.</p>
+                </div>
+                <div class="col-lg-6">
+                    <label class="control-label" for="select01">Local onde ocorreu o problema:</label>
+                    <div class="controls">
+                        {{form_widget(form.chamadaLocal,{'attr':{'required':'required'} }) }}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="control-label" for="select02">Categoria do problema:</label>
+                    <div class="controls">
+                        {{ form_widget(form.chamadaCategoria,{'attr':{'required':'required'} }) }}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <label class="control-label" for="textarea">Observações:</label>
+                    <div class="controls">
+                        {{ form_widget(form.observacoes) }}
+                        <p class="help-block">Observações quanto ao problema ocorrido. (Exemplo: uma categoria não listada)</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="control-label" for="input04">Contato adicional(Celular): </label>
+                    <div class="controls">
+                        {{ form_widget(form.contatoAdicional1, {'attr':{'placeholder':'(99)9999-9999', 'onkeypress':'mascara(this);'} }) }}
+                        <p class="help-block">Contato adicional caso não se consiga entrar em contato por outros meios.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="control-label" for="input05">E-mail adicional para contato: </label>
+                    <div class="controls">
+                        {{ form_widget(form.contatoAdicional2, {'attr':{'placeholder':'email@exemplo.com'} }) }}
+                        <p class="help-block">Contato adicional caso haja necessidade de comunicação com o solicitante.</p>
+                    </div>
+                </div>
 
-            <div class="col-md-9">
-                {{form_start(form, { 'attr': {'class':'form-horizontal well', 'data-validat':'parsley'} })}}
-                <fieldset>
-                    <legend>Iniciar uma Chamada</legend>
-                    <div class="col-lg-12">
-                        <label class="control-label" for="input01">Solicitante: </label>
-                        <div class="controls">
-                            <input class="form-control input-xlarge" value="{{cliente.nome}}" disabled="true">
-                            <p class="help-block">Nome do usuário solicitante.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="control-label" for="input01">E-mail principal: </label>
-                        <div class="controls">
-                            <input class="form-control" id='username' name='username'  value="{{cliente.username}}" disabled="true">
-                            <p class="help-block">Email principal do solicitante.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="control-label" for="input01">Telefone/Ramal: </label>
-                        <div class="controls">
-                            <input class="form-control" value="{{cliente.telefone}}" disabled="true">
-                            <p class="help-block">Telefone ou ramal principal do solicitante.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="control-label" for="descricaoProblema">Descrição:</label>
-                        <div class="controls">
-                            {{form_widget(form.descricaoProblema)}}
-                            {{form_errors(form.descricaoProblema) }}
-                        </div>
-                        <p class="help-block">Escreva uma breve descrição do problema ocorrido.</p>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="control-label" for="select01">Local onde ocorreu o problema:</label>
-                        <div class="controls">
-                            {{form_widget(form.chamadaLocal) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="control-label" for="select01">Categoria do problema:</label>
-                        <div class="controls">
-                            {{ form_widget(form.chamadaCategoria) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="control-label" for="textarea">Observações:</label>
-                        <div class="controls">
-                            {{ form_widget(form.observacoes) }}
-                            <p class="help-block">Observações quanto ao problema ocorrido. (Exemplo: uma categoria não listada)</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="control-label" for="input01">Contato adicional(Celular): </label>
-                        <div class="controls">
-                            {{ form_widget(form.contatoAdicional1) }}
-                            <p class="help-block">Contato adicional caso não se consiga entrar em contato por outros meios.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="control-label" for="input01">E-mail adicional para contato: </label>
-                        <div class="controls">
-                            {{ form_widget(form.contatoAdicional2, { 'attr' : {'data-trigger':'change','data-type': 'email'} }) }}
-                            <p class="help-block">Contato adicional caso haja necessidade de comunicação com o solicitante.</p>
-                        </div>
-                    </div>
+                <hr>
 
-                    <hr>
-
-                    <div class="col-lg-6">
-                        <div class="form-actions">
-                            {{ form_widget(form.submit, { 'attr' : {'class': 'btn btn-primary'}, 'label': 'Salvar' }) }}
-                            <button type="reset" class="btn btn-warning">Limpar</button>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="form-actions">
+                        {{ form_widget(form.submit, { 'attr' : {'class': 'btn btn-primary'}, 'label': 'Salvar' }) }}
+                        <button type="reset" class="btn btn-warning">Limpar</button>
                     </div>
-
-                </fieldset>
-                {{ form_end(form) }}
-            </div>
+                </div>
+                {{ form_widget(form.chamadaNivel, { 'attr':{'style':'display: none;' } }) }}
+                {{ form_widget(form.descricaoSolucao, { 'attr':{'style':'display: none;' } }) }}
+                {{ form_widget(form.chamadaStatus, { 'attr':{'style':'display: none;'} }) }}
+            </fieldset>
+            {{ form_end(form) }}
         </div>
-    {% endblock %}
 
-    {% block javascripts %}
-        <!-- script references -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js" ></script>
-        <script src="{{asset('bundles/helpdesk/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('bundles/helpdesk/js/parsley/parleys.min.js')}}"></script>
-        <script src="{{asset('bundles/helpdesk/js/parsley/parleys-standalone.min.js')}}"></script>
-        <script src="{{asset('bundles/helpdesk/js/parsley/parleys.extend.min.js')}}"></script>
-
-
-
-    {% endblock %}
-
+    <script type="text/javascript">
+        function mascara(telefone) {
+            telefone.value = telefone.value.replace(/\D/g, "");             //Remove tudo o que não é dígito
+            telefone.value = telefone.value.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+            telefone.value = telefone.value.replace(/(\d)(\d{4})$/, "$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+             }
+    </script>
 {% endblock %}

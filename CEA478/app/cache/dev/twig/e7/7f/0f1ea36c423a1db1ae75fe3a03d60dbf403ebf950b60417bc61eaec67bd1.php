@@ -12,9 +12,10 @@ class __TwigTemplate_e77f0f1ea36c423a1db1ae75fe3a03d60dbf403ebf950b60417bc61eaec
         $this->blocks = array(
             'stylesheets' => array($this, 'block_stylesheets'),
             'barraNavegacao' => array($this, 'block_barraNavegacao'),
+            'menu' => array($this, 'block_menu'),
             'container' => array($this, 'block_container'),
-            'javascripts' => array($this, 'block_javascripts'),
             'rodape' => array($this, 'block_rodape'),
+            'javascripts' => array($this, 'block_javascripts'),
         );
     }
 
@@ -46,24 +47,33 @@ class __TwigTemplate_e77f0f1ea36c423a1db1ae75fe3a03d60dbf403ebf950b60417bc61eaec
         // line 49
         echo "
 
+
+
         <div class=\"container\">
             ";
-        // line 52
-        $this->displayBlock('container', $context, $blocks);
         // line 54
+        $this->displayBlock('menu', $context, $blocks);
+        // line 66
+        echo "            
+            ";
+        // line 67
+        $this->displayBlock('container', $context, $blocks);
+        // line 69
         echo "        </div>
 
+
+
+
         ";
-        // line 56
-        $this->displayBlock('javascripts', $context, $blocks);
-        // line 61
+        // line 74
+        $this->displayBlock('rodape', $context, $blocks);
+        // line 93
         echo "
 
-
         ";
-        // line 64
-        $this->displayBlock('rodape', $context, $blocks);
-        // line 83
+        // line 95
+        $this->displayBlock('javascripts', $context, $blocks);
+        // line 100
         echo "    </body>
 
 
@@ -109,7 +119,7 @@ class __TwigTemplate_e77f0f1ea36c423a1db1ae75fe3a03d60dbf403ebf950b60417bc61eaec
                             <label class=\"label\">          
                                 ";
         // line 40
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, (isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "d/M H:i"), "html", null, true);
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, (isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "d/M"), "html", null, true);
         echo "
                             </label>
                         </div>
@@ -121,30 +131,49 @@ class __TwigTemplate_e77f0f1ea36c423a1db1ae75fe3a03d60dbf403ebf950b60417bc61eaec
         ";
     }
 
-    // line 52
+    // line 54
+    public function block_menu($context, array $blocks = array())
+    {
+        // line 55
+        echo "                <div class=\"col-md-3\">
+                    <p class=\"lead\">HelpDesk</p>
+                    <div class=\"list-group\">
+                        <a href=\"";
+        // line 58
+        echo $this->env->getExtension('routing')->getPath("home");
+        echo "\" class=\"list-group-item\">Início</a>
+                        <a href=\"";
+        // line 59
+        echo $this->env->getExtension('routing')->getPath("abrir_chamada");
+        echo "\" class=\"list-group-item\">Abrir Chamada</a>
+                        <a href=\"";
+        // line 60
+        echo $this->env->getExtension('routing')->getPath("minhas_chamadas");
+        echo "\" class=\"list-group-item\">Minhas Chamadas</a>
+                        <a href=\"";
+        // line 61
+        echo $this->env->getExtension('routing')->getPath("todas_chamadas");
+        echo "\" class=\"list-group-item\">Ver Todas Chamadas</a>
+                        <a href=\"";
+        // line 62
+        echo $this->env->getExtension('routing')->getPath("sair");
+        echo "\" class=\"list-group-item\">Sair</a>
+                    </div>
+                </div>
+            ";
+    }
+
+    // line 67
     public function block_container($context, array $blocks = array())
     {
-        // line 53
+        // line 68
         echo "            ";
     }
 
-    // line 56
-    public function block_javascripts($context, array $blocks = array())
-    {
-        // line 57
-        echo "            <!-- script references -->
-            <script src=\"//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js\" type=\"text/javascript\"></script>
-            <script src=\"";
-        // line 59
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/helpdesk/js/bootstrap.min.js"), "html", null, true);
-        echo "\" type=\"text/javascript\"></script>
-        ";
-    }
-
-    // line 64
+    // line 74
     public function block_rodape($context, array $blocks = array())
     {
-        // line 65
+        // line 75
         echo "            <!-- /.container -->
 
             <div class=\"container\">
@@ -165,6 +194,22 @@ class __TwigTemplate_e77f0f1ea36c423a1db1ae75fe3a03d60dbf403ebf950b60417bc61eaec
         ";
     }
 
+    // line 95
+    public function block_javascripts($context, array $blocks = array())
+    {
+        // line 96
+        echo "            <!-- script references -->
+            <script src=\"";
+        // line 97
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/helpdesk/js/jquery.js"), "html", null, true);
+        echo "\" type=\"text/javascript\"></script>
+            <script src=\"";
+        // line 98
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/helpdesk/js/bootstrap.min.js"), "html", null, true);
+        echo "\" type=\"text/javascript\"></script>
+        ";
+    }
+
     public function getTemplateName()
     {
         return "::templateAll.html.twig";
@@ -172,6 +217,6 @@ class __TwigTemplate_e77f0f1ea36c423a1db1ae75fe3a03d60dbf403ebf950b60417bc61eaec
 
     public function getDebugInfo()
     {
-        return array (  148 => 65,  145 => 64,  139 => 59,  135 => 57,  132 => 56,  128 => 53,  125 => 52,  112 => 40,  94 => 24,  91 => 23,  85 => 15,  77 => 11,  74 => 10,  67 => 83,  65 => 64,  60 => 61,  58 => 56,  54 => 54,  52 => 52,  47 => 49,  45 => 23,  37 => 17,  35 => 10,  24 => 1,  53 => 21,  34 => 5,  31 => 4,  28 => 3,);
+        return array (  208 => 98,  204 => 97,  201 => 96,  198 => 95,  177 => 75,  174 => 74,  170 => 68,  167 => 67,  159 => 62,  155 => 61,  151 => 60,  147 => 59,  143 => 58,  138 => 55,  135 => 54,  122 => 40,  104 => 24,  101 => 23,  95 => 15,  87 => 11,  84 => 10,  77 => 100,  75 => 95,  71 => 93,  69 => 74,  62 => 69,  60 => 67,  57 => 66,  55 => 54,  48 => 49,  46 => 23,  38 => 17,  36 => 10,  25 => 1,);
     }
 }

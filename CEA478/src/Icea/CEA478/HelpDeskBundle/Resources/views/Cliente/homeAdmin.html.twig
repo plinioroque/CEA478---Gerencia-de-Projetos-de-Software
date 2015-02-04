@@ -8,14 +8,13 @@
             <div class="col-md-3">
                 <p class="lead">HelpDesk</p>
                 <div class="list-group">
-                    <a href="{{path('cliente_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
+                    <a href="{{path('admin_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
                     <a href="{{path('login')}}" class="list-group-item">Sair</a>
                 </div>
                 
                 <p class="lead">Chamadas</p>
                 <div class="list-group">
-                    <a href="{{path('abrir_chamada', { 'userId': usuario.id } )}}" class="list-group-item">Abrir Chamada</a>
-                    <a href="#" class="list-group-item">Minhas Chamadas</a>
+                    <a href="#" class="list-group-item">Meus Chamados</a>
                     <a href="{{path('todas_chamadas_admin', { 'userId': usuario.id })}}" class="list-group-item">Ver Todas Chamadas</a>
                     <a href="{{path('sem_prioridade', { 'userId': usuario.id } )}}" class="list-group-item">Sem Prioridade</a>
                     <a href="{{path('chamadas_em_aberto', { 'userId': usuario.id } )}}" class="list-group-item">Em Aberto</a>
@@ -28,7 +27,7 @@
             <div class="col-md-9">
 
                 <div class="thumbnail">
-                    <img class="img-responsive" src="{{asset('bundles/iceasisnti/images/logoicea.jpg')}}" alt="">
+                    <img class="img-responsive" src="{{asset('bundles/helpdesk/images/logoicea.jpg')}}" alt="">
                     <div class="caption-full">
                         <br><br>
 

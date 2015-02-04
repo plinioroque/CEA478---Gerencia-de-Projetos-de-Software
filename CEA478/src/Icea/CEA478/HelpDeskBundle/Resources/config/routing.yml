@@ -1,88 +1,93 @@
-help_desk_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: HelpDeskBundle:Default:index }
-    
 HelpDeskBundle_chamadas:
     resource: "@HelpDeskBundle/Resources/config/routing/chamadas.yml"
     prefix:   /chamadas
 
 HelpDeskBundle_chamadacategoria:
     resource: "@HelpDeskBundle/Resources/config/routing/chamadacategoria.yml"
-    prefix:   /chamadacategoria
+    prefix:   /admin/chamadacategoria
 
 HelpDeskBundle_chamadalocal:
     resource: "@HelpDeskBundle/Resources/config/routing/chamadalocal.yml"
-    prefix:   /chamadalocal
+    prefix:   /admin/chamadalocal
     
 HelpDeskBundle_chamadastatus:
     resource: "@HelpDeskBundle/Resources/config/routing/chamadastatus.yml"
-    prefix:   /chamadastatus
+    prefix:   /admin/chamadastatus
 
 HelpDeskBundle_chamadanivel:
     resource: "@HelpDeskBundle/Resources/config/routing/chamadanivel.yml"
-    prefix:   /chamadanivel
+    prefix:   /admin/chamadanivel
     
 HelpDeskBundle_relatorios:
     resource: "@HelpDeskBundle/Resources/config/routing/relatorios.yml"
-    prefix:   /relatorios
+    prefix:   /admin/relatorios
 
 HelpDeskBundle_usuarioclasse:
     resource: "@HelpDeskBundle/Resources/config/routing/usuarioclasse.yml"
-    prefix:   /usuarioclasse
+    prefix:   /admin/usuarioclasse
     
 HelpDeskBundle_usuario:
     resource: "@HelpDeskBundle/Resources/config/routing/usuario.yml"
-    prefix:   /usuario
+    prefix:   /admin/usuario
 
 
 login:
     path:     /
-    defaults: { _controller: HelpDeskBundle:Login:login }
+    defaults: { _controller: HelpDeskBundle:Login:login}
 
 login_check:
     path:     /login_check
     defaults: { _controller: HelpDeskBundle:Login:login_check }
 
-cliente_home:
-    path:     /helpdesk/{userId}/home/
+home:
+    path:     /helpdesk/home/
     defaults: { _controller: HelpDeskBundle:Cliente:home }
 
 abrir_chamada:
-    path:     /helpdesk/{userId}/abrirChamada/
+    path:     /helpdesk/abrirChamada/
     defaults: { _controller: HelpDeskBundle:Cliente:abrirChamada }
     
 minhas_chamadas:
-    path:     /helpdesk/{userId}/minhasChamadas
+    path:     /helpdesk/minhasChamadas
     defaults: { _controller: HelpDeskBundle:Cliente:minhasChamadas }
 
 todas_chamadas:
-    path:     /helpdesk/{userId}/todasChamadas
+    path:     /helpdesk/todasChamadas
     defaults: { _controller: HelpDeskBundle:Cliente:todasChamadas }
     
 busca:
-    path:     /helpdesk/{userId}/todasChamadas/busca
+    path:     /helpdesk/todasChamadas/busca
     defaults: { _controller: HelpDeskBundle:BuscaChamados:busca }
-
-todas_chamadas_admin:
-    path:     /helpdesk/{userId}/todasChamadasAdmin
-    defaults: { _controller: HelpDeskBundle:Cliente:todasChamadasAdmin }    
-    
-admin_home:
-    path:     /helpdesk/{userId}/homeAdmin/
-    defaults: { _controller: HelpDeskBundle:Cliente:homeAdmin }    
-    
+   
 sem_prioridade:
-    path:     /helpdesk/{userId}/chamadas/admin/semPrioridade/
-    defaults: { _controller: HelpDeskBundle:Cliente:semPrioridade }
+    path:     /helpdesk/chamadas/semPrioridade/
+    defaults: { _controller: HelpDeskBundle:Admin:semPrioridade }
+
+definir_prioridade:
+    path:     /helpdesk/chamadas/definirPrioridade/{id}
+    defaults: { _controller: HelpDeskBundle:Chamadas:definirPrioridade }
     
 chamadas_em_aberto:
-    path:     /helpdesk/{userId}/chamadas/admin/emAberto
-    defaults: { _controller: HelpDeskBundle:Cliente:emAberto }
+    path:     /helpdesk/chamadas/emAberto
+    defaults: { _controller: HelpDeskBundle:Admin:emAberto }
 
 chamadas_em_andamento:
-    path:     /helpdesk/{userId}/chamadas/admin/emAndamento
-    defaults: { _controller: HelpDeskBundle:Cliente:emAndamento }
+    path:     /helpdesk/chamadas/emAndamento
+    defaults: { _controller: HelpDeskBundle:Admin:emAndamento }
     
 chamadas_finalizadas:
-    path:     /helpdesk/{userId}/chamadas/admin/finalizadas
-    defaults: { _controller: HelpDeskBundle:Cliente:finalizadas }
+    path:     /helpdesk/chamadas/finalizadas
+    defaults: { _controller: HelpDeskBundle:Admin:finalizadas }
+    
+sair:
+    path:     /sair
+    defaults: { _controller: HelpDeskBundle:Login:sair }
+
+
+finalizar_chamada_edit:
+    path:     /helpdesk/finalizarChamado/{id}
+    defaults: { _controller: HelpDeskBundle:Chamadas:finalizarEdit }
+
+finalizar_chamada:
+    path:     /helpdesk/chamados/finalizar/{id}
+    defaults: { _controller: HelpDeskBundle:Chamadas:finalizar }

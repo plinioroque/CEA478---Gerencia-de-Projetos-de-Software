@@ -1,25 +1,11 @@
 {% extends '::templateAll.html.twig' %}
-
-{% block body -%}    
+  
     {% block container %}
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">HelpDesk</p>
-                <div class="list-group">
-                    <a href="{{path('cliente_home', {'userId': usuario.id } )}}" class="list-group-item">Início</a>
-                    <a href="{{path('abrir_chamada', { 'userId': usuario.id } )}}" class="list-group-item">Abrir Chamada</a>
-                    <a href="{{path('minhas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Minhas Chamadas</a>
-                    <a href="{{path('todas_chamadas', { 'userId': usuario.id })}}" class="list-group-item">Ver Todas Chamadas</a>
-                    <a href="{{path('login')}}" class="list-group-item">Sair</a>
-                </div>
-            </div>
 
             <div class="col-md-9">
 
                 <div class="thumbnail">
-                    <img class="img-responsive" src="{{asset('bundles/iceasisnti/images/logoicea.jpg')}}" alt="">
+                    <img class="img-responsive" src="{{asset('bundles/helpdesk/images/logoicea.jpg')}}" alt="Logo NTI">
                     <div class="caption-full">
                         <br><br>
 
@@ -32,7 +18,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
     {% endblock %}
-
-{% endblock %}

@@ -51,7 +51,7 @@ Icea\CEA478\HelpDeskBundle\Entity\Chamadas:
         contatoAdicional1:
             type: string
             nullable: true
-            length: 45
+            length: 15
             fixed: false
             comment: ''
             column: contato_adicional1
@@ -63,9 +63,9 @@ Icea\CEA478\HelpDeskBundle\Entity\Chamadas:
             comment: ''
             column: contato_adicional2
         descricaoSolucao:
-            type: string
+            type: text
             nullable: true
-            length: 45
+            length: null
             fixed: false
             comment: ''
             column: descricao_solucao

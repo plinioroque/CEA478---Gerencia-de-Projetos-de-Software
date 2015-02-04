@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/config/parameters.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/config/routing/usuario.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Usuario/new.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Controller/UsuarioController.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Form/ChamadasType.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/home.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Form/UsuarioType.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/config/doctrine/metadata/orm/Usuario.orm.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Cliente/todasChamadas.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/definirPrioridade.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Cliente/abrirChamada.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/BuscaChamados/busca.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Entity/Usuario.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/semPrioridade.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Cliente/home.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Controller/AdminController.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Controller/ChamadasController.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/Resources/views/templateAll.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/showAdmin.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/config/doctrine/Chamadas.orm.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/emAndamento.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/config/routing_dev.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/config/doctrine/Usuario.orm.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Controller/ClienteController.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/config/routing.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/config/config.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/config/routing.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Cliente/minhasChamadas.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/finalizadas.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Controller/LoginController.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/finalizarChamada.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Controller/ChamadaNivelController.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/app/config/security.yml</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Admin/todasChamadasAdmin.html.twig</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Entity/ChamadaNivel.php</file>
+            <file>file:/home/plinio/Copy/Git/CEA478---Gerencia-de-Projetos-de-Software/CEA478/src/Icea/CEA478/HelpDeskBundle/Resources/views/Login/login.html.twig</file>
+        </group>
+    </open-files>
+</project-private>

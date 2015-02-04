@@ -1,0 +1,38 @@
+{% extends '::templateAll.html.twig' %}
+
+{% block menu %}
+    <div class="col-md-3">
+        <p class="lead">HelpDesk</p>
+        <div class="list-group">
+            <a href="{{path('home')}}" class="list-group-item">Início</a>
+            <a href="#" class="list-group-item">Usuários</a>
+            <a href="{{path('sair')}}" class="list-group-item">Sair</a>
+        </div>
+
+        <p class="lead">Chamados</p>
+        <div class="list-group">
+            <a href="#" class="list-group-item">A Concluir</a>
+            <a href="{{path('todas_chamadas')}}" class="list-group-item">Ver Todos</a>
+            <a href="{{path('sem_prioridade')}}" class="list-group-item">Sem Prioridade</a>
+            <a href="{{path('chamadas_em_aberto')}}" class="list-group-item">Em Aberto</a>
+            <a href="{{path('chamadas_em_andamento')}}" class="list-group-item">Em Andamento</a>
+            <a href="{{path('chamadas_finalizadas')}}" class="list-group-item">Finalizados</a>
+            <a href="#" class="list-group-item">Cancelados</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="col-md-9">
+
+        <div class="thumbnail">
+            <img class="img-responsive" src="{{asset('bundles/helpdesk/images/logoicea.jpg')}}" alt="Logo Icea">
+            <div class="caption-full">
+
+                <a class="list-group-item lead well-sm"><label>Nome:</label> {{usuario.nome}}</a>
+                <a class="list-group-item lead well-sm"><label>E-mail:</label> {{usuario.username}}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

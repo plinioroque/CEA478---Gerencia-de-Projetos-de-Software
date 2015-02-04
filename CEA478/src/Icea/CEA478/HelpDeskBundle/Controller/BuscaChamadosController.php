@@ -7,17 +7,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BuscaChamadosController extends Controller {
 
-    public function buscaAction(Request $request, $userId) {
+    public function buscaAction(Request $request) {
+        $session = $this->getRequest()->getSession();
         if ($request->getMethod() == 'POST') {
-            #@int
             $tipoFiltro = $request->get('tipoFiltro');
             $valorFiltro = $request->get('valorFiltro');
-            $em = $this->getDoctrine()->getManager();
-            $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
             $resultado = $this->trataFiltro($tipoFiltro, $valorFiltro);
 
+            if ($session->get('user')->getRoles() == 'ROLE_ADMIN') {
+                return $this->render('HelpDeskBundle:BuscaChamados:buscaAdmin.html.twig', array(
+                            'entities' => $resultado[0],
+                            'erro' => $resultado[1],
+                            'solucao' => $resultado[2],
+                            'data' => new \DateTime,
+                ));
+            }
             return $this->render('HelpDeskBundle:BuscaChamados:busca.html.twig', array(
-                        'usuario' => $cliente,
                         'entities' => $resultado[0],
                         'erro' => $resultado[1],
                         'solucao' => $resultado[2],

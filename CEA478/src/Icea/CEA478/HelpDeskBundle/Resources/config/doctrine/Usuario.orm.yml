@@ -40,7 +40,7 @@ Icea\CEA478\HelpDeskBundle\Entity\Usuario:
         password:
             type: string
             nullable: false
-            length: 32
+            length: 45
             fixed: false
             comment: ''
     manyToOne:

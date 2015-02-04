@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Usuario
  */
-class Usuario
-{
+class Usuario {
+
     /**
      * @var integer
      */
@@ -39,15 +39,21 @@ class Usuario
      */
     private $usuarioClasse;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
+    }
+    public function __construct($id=null, $nome=null, $username=null, $telefone=null, $usuarioClasse=null) {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->username = $username;
+        $this->telefone = $telefone;
+        $this->usuarioClasse = new \Icea\CEA478\HelpDeskBundle\Entity\UsuarioClasse; 
+        $this->usuarioClasse->setDescricao($usuarioClasse);
     }
 
     /**
@@ -56,8 +62,7 @@ class Usuario
      * @param string $nome
      * @return Usuario
      */
-    public function setNome($nome)
-    {
+    public function setNome($nome) {
         $this->nome = $nome;
 
         return $this;
@@ -68,8 +73,7 @@ class Usuario
      *
      * @return string 
      */
-    public function getNome()
-    {
+    public function getNome() {
         return $this->nome;
     }
 
@@ -79,8 +83,7 @@ class Usuario
      * @param string $username
      * @return Usuario
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
 
         return $this;
@@ -91,8 +94,7 @@ class Usuario
      *
      * @return string 
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -102,8 +104,7 @@ class Usuario
      * @param string $telefone
      * @return Usuario
      */
-    public function setTelefone($telefone)
-    {
+    public function setTelefone($telefone) {
         $this->telefone = $telefone;
 
         return $this;
@@ -114,8 +115,7 @@ class Usuario
      *
      * @return string 
      */
-    public function getTelefone()
-    {
+    public function getTelefone() {
         return $this->telefone;
     }
 
@@ -125,8 +125,7 @@ class Usuario
      * @param string $password
      * @return Usuario
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
@@ -137,8 +136,7 @@ class Usuario
      *
      * @return string 
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -148,8 +146,7 @@ class Usuario
      * @param \Icea\CEA478\HelpDeskBundle\Entity\UsuarioClasse $usuarioClasse
      * @return Usuario
      */
-    public function setUsuarioClasse(\Icea\CEA478\HelpDeskBundle\Entity\UsuarioClasse $usuarioClasse = null)
-    {
+    public function setUsuarioClasse(\Icea\CEA478\HelpDeskBundle\Entity\UsuarioClasse $usuarioClasse = null) {
         $this->usuarioClasse = $usuarioClasse;
 
         return $this;
@@ -160,18 +157,35 @@ class Usuario
      *
      * @return \Icea\CEA478\HelpDeskBundle\Entity\UsuarioClasse 
      */
-    public function getUsuarioClasse()
-    {
-        return $this->usuarioClasse;
+    public function getUsuarioClasse() {
+        return $this->usuarioClasse->getDescricao();
     }
-    
+
     /**
      * sobreescreve toString
      *
      * @return string 
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->nome;
     }
+
+    public function getRoles() {
+        if (strcmp($this->getUsuarioClasse(), "Administrador") == 0 or strcmp($this->getUsuarioClasse(), "Bolsista") == 0) {
+            return 'ROLE_ADMIN';
+        }
+        return 'ROLA_USER';
+    }
+
+    /**
+     * Set nome
+     *
+     * @param int $id
+     * @return Usuario
+     */
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
 }

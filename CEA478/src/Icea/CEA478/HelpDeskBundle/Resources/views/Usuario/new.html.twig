@@ -1,15 +1,100 @@
-{% extends '::base.html.twig' %}
+{# empty Twig template #}
+{% extends '::templateAll.html.twig' %}
 
-{% block body -%}
+{% block menu %}
+    <div class="col-md-3">
+        <p class="lead">HelpDesk</p>
+        <div class="list-group">
+            <a href="{{path('home')}}" class="list-group-item">Início</a>
+            <a href="{{path('home')}}" class="list-group-item">Usuários</a>
+            <a href="{{path('sair')}}" class="list-group-item">Sair</a>
+        </div>
+
+        <p class="lead">Chamados</p>
+        <div class="list-group">
+            <a href="#" class="list-group-item">A Concluir</a>
+            <a href="{{path('todas_chamadas')}}" class="list-group-item">Ver Todos</a>
+            <a href="{{path('sem_prioridade')}}" class="list-group-item">Sem Prioridade</a>
+            <a href="{{path('chamadas_em_aberto')}}" class="list-group-item">Em Aberto</a>
+            <a href="{{path('chamadas_em_andamento')}}" class="list-group-item">Em Andamento</a>
+            <a href="{{path('chamadas_finalizadas')}}" class="list-group-item">Finalizados</a>
+            <a href="#" class="list-group-item">Cancelados</a>
+        </div>
+    </div>
+{% endblock %} 
+
+{% block container %}
+
+
+    <div class="col-md-9">
+        {{form_start(form, { 'attr': {'class':'form-horizontal well'} })}}
+        <fieldset>
+            <legend>Cadastrar Usuário</legend>
+            <div class="col-lg-12">
+                <label class="control-label" for="nome">Nome: </label>
+                <div class="controls">
+                    {{form_widget(form.nome)}}
+                    <p class="help-block">Nome completo do usuário.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="control-label" for="descricaoProblema">E-mail:</label>
+                <div class="controls">
+                    {{form_widget(form.username,{'attr':{'placeholder':'email@exemplo.com'} })}}
+                    <p class="help-block">E-mail principal do usuário.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="control-label" for="select01">Senha:</label>
+                <div class="controls">
+                    {{form_widget(form.password) }}
+                    <p class="help-block">Senha de acesso ao login do sistema.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="control-label" for="select01">Telefone:</label>
+                <div class="controls">
+                    {{form_widget(form.telefone,{'attr':{'placeholder':'(99)9999-9999', 'onkeypress':'mascara(this);'} } )}}
+                    <p class="help-block">Telefone principal do usuário.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="control-label" for="textarea">Classe:</label>
+                <div class="controls">
+                    {{ form_widget(form.usuarioClasse) }}
+                    <p class="help-block">Classe do usuário, irá definir o nível de acesso do usuário ao sistema.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="form-actions">
+                    {{ form_widget(form.submit, { 'attr' : {'class': 'btn btn-primary'}, 'label':'Salvar' }) }}
+                    <button type="reset" class="btn btn-warning">Limpar</button>
+                </div>
+            </div>
+        </fieldset>
+        {{ form_end(form) }}
+    </div>
+    
+    <script type="text/javascript">
+        function mascara(telefone) {
+            telefone.value = telefone.value.replace(/\D/g, "");             //Remove tudo o que não é dígito
+            telefone.value = telefone.value.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+            telefone.value = telefone.value.replace(/(\d)(\d{4})$/, "$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+             }
+    </script>
+
+{% endblock %}
+
+{#{% block body -%}
     <h1>Usuario creation</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('usuario') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
-{% endblock %}
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('usuario') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
+{% endblock %}#}

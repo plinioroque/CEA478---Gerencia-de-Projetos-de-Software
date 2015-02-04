@@ -8,50 +8,37 @@ use Icea\CEA478\HelpDeskBundle\Form\ChamadasType;
 
 class ClienteController extends Controller {
 
-    public function homeAction($userId) {
-        /**
-         * TESTE TEMPORARIO
-         */
-        $em = $this->getDoctrine()->getManager();
+    public function homeAction() {
+        $session = $this->getRequest()->getSession();
+        if ($session->has('user')) {
+            $user = $session->get('user');
+            $em = $this->getDoctrine()->getManager();
+            $chamadas = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $user->getID()));
 
-        $usuario = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $chamadas = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $usuario->getId()));
-
-        return $this->render('HelpDeskBundle:Cliente:home.html.twig', array(
-                    'usuario' => $usuario,
-                    'chamadas' => $chamadas,
-                    'data' => new \DateTime
-        ));
+            if($session->get('user')->getRoles()=='ROLE_ADMIN'){
+                return $this->render('HelpDeskBundle:Admin:home.html.twig', array(
+                            'usuario' => $user,
+                            'chamadas' => $chamadas,
+                            'data' => new \DateTime
+                ));
+            }
+            return $this->render('HelpDeskBundle:Cliente:home.html.twig', array(
+                        'usuario' => $user,
+                        'chamadas' => $chamadas,
+                        'data' => new \DateTime
+            ));
+        }
+        $session->set('erro', 'Sessão inválida!');
+        return $this->redirect($this->generateUrl('login'), 302);
     }
 
-    public function homeAdminAction($userId) {
-        /**
-         * TESTE TEMPORARIO
-         */
-        $em = $this->getDoctrine()->getManager();
-
-        $usuario = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $chamadas = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $usuario->getId()));
-
-        return $this->render('HelpDeskBundle:Cliente:homeAdmin.html.twig', array(
-                    'usuario' => $usuario,
-                    'chamadas' => $chamadas,
-                    'data' => new \DateTime
-        ));
-    }
-
-    public function abrirChamadaAction($userId) {
+    public function abrirChamadaAction() {
+        $session = $this->getRequest()->getSession();
         $entity = new Chamadas();
-
-
-        $emCliente = $this->getDoctrine()->getManager();
-        $entityCliente = $emCliente->getRepository('HelpDeskBundle:Usuario')->find($userId);
-
         $form = $this->createCreateForm($entity);
-
+        
         return $this->render('HelpDeskBundle:Cliente:abrirChamada.html.twig', array(
-                    'entity' => $entity,
-                    'cliente' => $entityCliente,
+                    'cliente' => $session->get('user'),
                     'form' => $form->createView(),
                     'data' => new \DateTime
         ));
@@ -75,10 +62,11 @@ class ClienteController extends Controller {
         return $form;
     }
 
-    public function minhasChamadasAction($userId) {
+    public function minhasChamadasAction() {
+        $session= $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $cliente->getId()));
+        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($session->get('user')->getId());
+        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('cliente' => $cliente));
 
         return $this->render('HelpDeskBundle:Cliente:minhasChamadas.html.twig', array(
                     'usuario' => $cliente,
@@ -87,76 +75,20 @@ class ClienteController extends Controller {
         ));
     }
 
-    public function todasChamadasAction($userId) {
+    public function todasChamadasAction() {
+        $session= $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
+        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($session->get('user')->getId());
         $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findAll();
-
+        
+        if($session->get('user')->getRoles()=='ROLE_ADMIN'){
+            return $this->render('HelpDeskBundle:Admin:todasChamadasAdmin.html.twig', array(
+                        'usuario' => $cliente,
+                        'entities' => $entities,
+                        'data' => new \DateTime
+            ));
+        }
         return $this->render('HelpDeskBundle:Cliente:todasChamadas.html.twig', array(
-                    'usuario' => $cliente,
-                    'entities' => $entities,
-                    'data' => new \DateTime
-        ));
-    }
-
-    public function todasChamadasAdminAction($userId) {
-        $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findAll();
-
-        return $this->render('HelpDeskBundle:Cliente:todasChamadasAdmin.html.twig', array(
-                    'usuario' => $cliente,
-                    'entities' => $entities,
-                    'data' => new \DateTime
-        ));
-    }
-
-    public function emAbertoAction($userId) {
-        $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $status = $em->getRepository("HelpDeskBundle:ChamadaStatus")->find(1);
-        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('chamadaStatus' => $status));
-
-        return $this->render('HelpDeskBundle:Chamadas:emAberto.html.twig', array(
-                    'usuario' => $cliente,
-                    'entities' => $entities,
-                    'data' => new \DateTime
-        ));
-    }
-    
-    public function emAndamentoAction($userId) {
-        $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $status = $em->getRepository("HelpDeskBundle:ChamadaStatus")->find(2);
-        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('chamadaStatus' => $status));
-
-        return $this->render('HelpDeskBundle:Chamadas:emAndamento.html.twig', array(
-                    'usuario' => $cliente,
-                    'entities' => $entities,
-                    'data' => new \DateTime
-        ));
-    }
-    
-    public function finalizadasAction($userId) {
-        $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-        $status = $em->getRepository("HelpDeskBundle:ChamadaStatus")->find(3);
-        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('chamadaStatus' => $status));
-
-        return $this->render('HelpDeskBundle:Chamadas:finalizadas.html.twig', array(
-                    'usuario' => $cliente,
-                    'entities' => $entities,
-                    'data' => new \DateTime
-        ));
-    }
-    
-    public function semPrioridadeAction($userId) {
-        $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('HelpDeskBundle:Usuario')->find($userId);
-//        $status = $em->getRepository("HelpDeskBundle:ChamadaNivel")->find();
-        $entities = $em->getRepository('HelpDeskBundle:Chamadas')->findBy(array('chamadaNivel' => null));
-
-        return $this->render('HelpDeskBundle:Chamadas:semPrioridade.html.twig', array(
                     'usuario' => $cliente,
                     'entities' => $entities,
                     'data' => new \DateTime
